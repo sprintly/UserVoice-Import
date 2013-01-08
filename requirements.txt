@@ -1,0 +1,9 @@
+PyYAML==3.10
+oauthlib==0.3.4
+pycrypto==2.6
+pytz==2012j
+requests==0.14.2
+requests-oauth==0.4.1
+simplejson==3.0.5
+uservoice==0.0.15
+wsgiref==0.1.2

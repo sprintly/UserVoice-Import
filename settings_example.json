@@ -1,0 +1,13 @@
+{
+  "uservoice": {
+    "subdomain": "",
+    "api_key": "",
+    "api_secret": ""
+  },
+  "sprintly": {
+    "base_url": "https://sprint.ly/api/",
+    "email": "",
+    "api_key": "",
+    "product_id": ""
+  }
+}
