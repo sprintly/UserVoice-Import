@@ -38,11 +38,14 @@ def upload_attachments(base_url, product_id, email, api_key, number, attachments
         response = get(attachment)
         files['file_%s' % i] = StringIO(response.content)
 
-    result = post('%sproducts/%s/items/%s/attachments.json' % (base_url, product_id, number),
+    result = post('%sproducts/%s/items/%s/attachments.json' % (base_url,
+                                                               product_id,
+                                                               number),
                   files=files,
                   auth=HTTPBasicAuth(email, api_key))
     if result.status_code != 200:
-        raise APIError("Got a %s status code instead of 200." % result.status_code)
+        raise APIError("Got a %s status code instead of 200." %
+                       result.status_code)
 
 def create_item_in_sprintly(base_url, product_id, email, api_key, data):
     attachments = data.pop('attachments', [])
@@ -51,7 +54,8 @@ def create_item_in_sprintly(base_url, product_id, email, api_key, data):
                   data=data,
                   auth=HTTPBasicAuth(email, api_key))
     if result.status_code != 200:
-        raise APIError("Got a %s status code instead of 200." % result.status_code)
+        raise APIError("Got a %s status code instead of 200." %
+                       result.status_code)
     number = result.json['number']
     print "Created #%s" % number
     print "%s/product/%s/items/%s" % (base_url.replace('/api/', ''),
@@ -66,7 +70,8 @@ if __name__ == '__main__':
     import os
     import json
     if not os.path.exists('./settings.json'):
-        sys.exit("You must create a settings.json file. Use the example as your guide.")
+        sys.exit("You must create a settings.json file. " \
+                 "Use the example as your guide.")
 
     with open('./settings.json', 'r') as cfg:
         config = json.load(cfg)
