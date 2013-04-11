@@ -11,13 +11,15 @@ def convert_to_sprintly(subdomain, ticket_number, item):
         'type': 'defect',
         'id': item['id'],
         'title': item['subject'],
-        'description': item['messages'][-1]['body'],
-        'url': 'https://%s.uservoice.com/admin/tickets/%s' % (
-            subdomain,
-            ticket_number
-            ),
         'attachments': [],
     }
+
+    result['description'] = "%s\n\n\nUservoice URL: %s" % (
+        item['messages'][-1]['body'],
+        'https://%s.uservoice.com/admin/tickets/%s' % (
+            subdomain,
+            ticket_number
+        ))
 
     if 'tags' in item:
         result['tags'] = ','.join(item['tags'])
