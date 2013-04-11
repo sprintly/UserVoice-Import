@@ -28,7 +28,8 @@ def convert_to_sprintly(subdomain, ticket_number, item):
     return result
 
 def get_item_from_uservoice(client, subdomain, number):
-    results = client.get_collection('/api/v1/tickets/search?number="%s' % number)
+    results = client.get_collection(
+        '/api/v1/tickets/search?query=number:%s' % number)
     return convert_to_sprintly(subdomain, number, results[0])
 
 def upload_attachments(base_url, product_id, email, api_key, number, attachments):
