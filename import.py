@@ -84,16 +84,16 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    client = uservoice.Client(config['uservoice']['subdomain'],
+    _client = uservoice.Client(config['uservoice']['subdomain'],
                               config['uservoice']['api_key'],
                               config['uservoice']['api_secret'])
 
-    item = get_item_from_uservoice(client,
                                    config['uservoice']['subdomain'],
                                    args.ticket_number)
+    _item = get_item_from_uservoice(_client,
 
     create_item_in_sprintly(config['sprintly']['base_url'],
                             config['sprintly']['product_id'],
                             config['sprintly']['email'],
                             config['sprintly']['api_key'],
-                            item)
+                            _item)
