@@ -58,7 +58,7 @@ def create_item_in_sprintly(base_url, product_id, email, api_key, data):
                        result.status_code)
     number = result.json['number']
     print "Created #%s" % number
-    print "%s/product/%s/items/%s" % (base_url.replace('/api/', ''),
+    print "%s/product/%s/#!/item/%s" % (base_url.replace('/api/', ''),
                                       product_id,
                                       number)
 
