@@ -6,13 +6,16 @@ import uservoice
 
 class APIError(Exception): pass
 
-def convert_to_sprintly(subdomain, ticket_number, item):
+def convert_to_sprintly(subdomain, ticket_number, item, title=None):
     result = {
         'type': 'defect',
         'id': item['id'],
-        'title': item['subject'],
         'attachments': [],
     }
+    if title:
+        result['title'] = title
+    else:
+        result['title'] = item['subject']
 
     result['description'] = "%s\n\n\nUservoice URL: %s" % (
         item['messages'][-1]['body'],
@@ -29,10 +32,10 @@ def convert_to_sprintly(subdomain, ticket_number, item):
 
     return result
 
-def get_item_from_uservoice(client, subdomain, number):
+def get_item_from_uservoice(client, subdomain, number, title=None):
     results = client.get_collection(
         '/api/v1/tickets/search?query=number:%s' % number)
-    return convert_to_sprintly(subdomain, number, results[0])
+    return convert_to_sprintly(subdomain, number, results[0], title=title)
 
 def upload_attachments(base_url, product_id, email, api_key, number, attachments):
     files = {}
@@ -80,7 +83,9 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Import stuff from UserVoice.')
 
-    parser.add_argument('ticket_number',help='uservoice ticket number')
+    parser.add_argument('ticket_number', help='uservoice ticket number')
+    parser.add_argument('--title', help='title for the ticket. Blank means '
+                        'use the Uservoice ticket title.')
 
     args = parser.parse_args()
 
@@ -88,9 +93,9 @@ if __name__ == '__main__':
                               config['uservoice']['api_key'],
                               config['uservoice']['api_secret'])
 
-                                   config['uservoice']['subdomain'],
-                                   args.ticket_number)
     _item = get_item_from_uservoice(_client,
+                                    config['uservoice']['subdomain'],
+                                    args.ticket_number, title=args.title)
 
     create_item_in_sprintly(config['sprintly']['base_url'],
                             config['sprintly']['product_id'],
