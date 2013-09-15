@@ -34,7 +34,7 @@ Create a configuation file (default location in
 
 ```ini
 [Uservoice]
-subdomain=sprintly
+subdomain=USERVOICE_SUBDOMAIN_HERE
 apikey=USERVOICE_API_KEY_HERE
 apisecret=USERVOICE_SECRET_KEY_HERE
 [Sprintly]
