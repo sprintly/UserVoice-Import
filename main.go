@@ -4,8 +4,8 @@ import (
 	"code.google.com/p/gcfg"
 	"flag"
 	"fmt"
-	"github.com/sprintly/sprintly"
-	"github.com/sprintly/uservoice"
+	"github.com/sprintly/sprintly-go/sprintly"
+	"github.com/sprintly/uservoice-go/uservoice"
 	"log"
 	"os"
 )
