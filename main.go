@@ -86,7 +86,10 @@ func main() {
 	if *link_with == 0 {
 		// post to sprint.ly
 		if len(ticket.Messages) > 0 {
-			url, err = s_client.CreateDefect(ticket.Subject, ticket.Messages[len(ticket.Messages)-1].PlaintextBody)
+			message := fmt.Sprintf("%s\n\n(Link to Uservoice)[%s]",
+				ticket.Messages[len(ticket.Messages)-1].PlaintextBody,
+				uv_client.UrlForTicket(ticket.Number))
+			url, err = s_client.CreateDefect(ticket.Subject, message)
 			if err != nil {
 				log.Fatalf("Couldn't create Sprint.ly defect: %s\n", err)
 			}
